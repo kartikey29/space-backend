@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const zlib = require("node:zlib");
-
+require("dotenv").config();
 const app = express();
 
 app.use(cors());
@@ -15,13 +15,11 @@ const {
   BlobCheckpointStore,
 } = require("@azure/eventhubs-checkpointstore-blob");
 
-const connectionString =
-  "Endpoint=sb://fr24-position-feed-1-westeurope.servicebus.windows.net/;SharedAccessKeyName=space-intel-consumer;SharedAccessKey=qfnoCjXfGvYWmMCL+HdG5DHSIc5jCxEOj+AEhAKrPYc=;EntityPath=space-intel";
-const eventHubName = "";
-const consumerGroup = "$Default"; // name of the default consumer group
-const storageConnectionString =
-  "DefaultEndpointsProtocol=https;AccountName=spaceintel;AccountKey=qDQ/d0lK6n/6Tms659CoKQ/YSdfdZ5jcPioQ4xGdtaLcECzuDg5OI7SEDijYWGbqozEbbSuXjlVj+AStGN1R4Q==;EndpointSuffix=core.windows.net";
-const containerName = "data";
+const connectionString = process.env.connectionString;
+const eventHubName = process.env.eventHubName;
+const consumerGroup = process.env.consumerGroup; // name of the default consumer group
+const storageConnectionString = process.env.storageConnectionString;
+const containerName = process.env.containerName;
 
 app.listen(5000, () => {
   console.log("server started");

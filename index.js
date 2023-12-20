@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const zlib = require("node:zlib");
 require("dotenv").config();
+const cron = require("node-cron");
+
 const app = express();
 
 app.use(cors());
@@ -133,4 +135,8 @@ app.get("/get-data", (req, res) => {
   // });
 
   return res.status(200).send({ data: ProcessedEvents });
+});
+
+cron.schedule("* 3 * * *", () => {
+  ProcessedEvents = [];
 });
